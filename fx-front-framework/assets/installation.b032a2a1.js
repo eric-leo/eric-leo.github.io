@@ -1,0 +1,2 @@
+import{Q as n,_ as r,y as o,W as t,a5 as e,A as s,X as l}from"./vue.e91292bd.js";import{_ as c}from"./index.68966418.js";import"./hongluan.7a8bc835.js";import"./highlight.a6f0727a.js";import"./hongluan-icons.70c7a857.js";const _={},i=s("section",null,[s("h1",null,"\u5B89\u88C5"),s("h2",{id:"npm"},[s("a",{class:"header-anchor",href:"#npm"}),l(" NPM")]),s("pre",null,[s("code",{class:"hljs language-shell"},`npm install fx-front-framework --save
+`)])],-1);function m(p,f){const a=n("right-nav");return r(),o(e,null,[i,t(a)],64)}var x=c(_,[["render",m]]);export{x as default};

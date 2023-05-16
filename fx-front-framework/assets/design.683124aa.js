@@ -1,0 +1,1 @@
+import{_ as r,y as s}from"./vue.e91292bd.js";import{_ as t}from"./index.68966418.js";import"./hongluan.7a8bc835.js";import"./highlight.a6f0727a.js";import"./hongluan-icons.70c7a857.js";const e={};function n(o,_){return r(),s("span",null,"design")}var f=t(e,[["render",n]]);export{f as default};

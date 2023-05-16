@@ -6,3 +6,4 @@
 
 - hl-business-ui: https://eric-lzw.github.io/hl-business-ui/
 
+- fx-front-framework: https://eric-lzw.github.io/fx-front-framework/
