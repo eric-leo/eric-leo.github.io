@@ -1,0 +1,1 @@
+var n=function(){function t(){var r=this;this.resolve=function(e){r._resolve(e)},this.reject=function(e){r._reject(e)},this._promise=new Promise(function(e,i){r._resolve=e,r._reject=i})}return Object.defineProperty(t.prototype,"promise",{get:function(){return this._promise},enumerable:!0,configurable:!0}),t}(),o=n;export{o as D};
