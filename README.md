@@ -84,7 +84,7 @@ pnpm add fx-front-framework
 
 ### 鸿鸾Pro页面模板是基于鸿鸾前端组件库生成的一套开箱即用的B端后台类页面模版库，它当前拥有：
 
-> 文档地址：http://pro.front.etcc.group/
+> 文档地址：https://eric-lzw.github.io/hongluan-pro/
 
 - 40+个通用页面模版
 - 可快速改变页面整体布局样式
