@@ -113,7 +113,7 @@ pnpm add @hongluan-ui/styles
 
 ### 鸿鸾SVG Icons包含300+个SVG图标，提供twotone，fill，file三个系列：
 
-> 文档地址：https://cestc-aqyj.github.io/hongluan-icons/
+> 文档地址：https://eric-lzw.github.io/hongluan-icons/
 
 ```shell
 安装方式：
@@ -126,7 +126,7 @@ pnpm add @hongluan-ui/icons
 
 ### 鸿鸾Hooks包含通用业务的Hooks实现，目前还比较简单：
 
-> 文档地址：http://hooks.front.etcc.group
+> 文档地址：https://eric-lzw.github.io/hongluan-hooks
 
 ```shell
 安装方式：
@@ -145,3 +145,10 @@ pnpm add hongluan-hooks
 - 100+种常用组件
 - 30+种常用移动端组件
 - 整套云管控台UI组件
+
+### 鸿鸾主题编辑器：在线生成自定义主题
+
+> 文档地址：https://eric-lzw.github.io/hongluan-theme-editor/
+
+- 目前仅支持:root下变量可视化编辑
+- 支持亮色，暗色，繁星，电子云四种主题
