@@ -26,7 +26,7 @@
 
 ### 鸿鸾UI基础组件库是基于Vue3的前端UI组件库，它当前拥有：
 
-> 文档地址： https://eric-lzw.github.io/hl-ui/
+> 文档地址： https://eric-lzw.github.io/hongluan-ui/
 
 ```shell
 安装方式：
@@ -43,7 +43,7 @@ pnpm add hongluan-ui
 
 ### 鸿鸾UI扩展组件库是基于鸿鸾前端组件库进行二次封装的组件库，它当前拥有：
 
-> 文档地址：https://eric-lzw.github.io/hl-business-ui/
+> 文档地址：https://eric-lzw.github.io/hongluan-business-ui/
 
 ```shell
 安装方式：
@@ -61,6 +61,26 @@ pnpm add hongluan-business-ui
 - 可拖动式对话框
 - 窗口停靠容器
 - ……等15+个常用扩展组件
+
+### 鸿鸾UI扩展组件库是基于鸿鸾前端组件库hongluan-ui和hongluan-business-ui进行二次封装的组件库，它当前拥有：
+
+> 文档地址：https://eric-lzw.github.io/fx-front-framework/
+
+```shell
+安装方式：
+npm install fx-front-framework
+或
+yarn add fx-front-framework
+或
+pnpm add fx-front-framework
+```
+
+- 操作按钮
+- 常用图片、文件上传和查看
+- 数据过滤器
+- 带过滤、分页、tab、搜索条件的表格
+- 适配不同大屏的chart图
+- ……等10+个常用扩展组件
 
 ### 鸿鸾Pro页面模板是基于鸿鸾前端组件库生成的一套开箱即用的B端后台类页面模版库，它当前拥有：
 
@@ -93,7 +113,7 @@ pnpm add @hongluan-ui/styles
 
 ### 鸿鸾SVG Icons包含300+个SVG图标，提供twotone，fill，file三个系列：
 
-> 文档地址：https://cestc-aqyj.github.io/hl-icons/
+> 文档地址：https://cestc-aqyj.github.io/hongluan-icons/
 
 ```shell
 安装方式：
@@ -119,7 +139,7 @@ pnpm add hongluan-hooks
 
 ### 鸿鸾Play：直接线上运行代码，分享URL即分享代码
 
-> 文档地址：https://eric-lzw.github.io/hl-playground/
+> 文档地址：https://eric-lzw.github.io/hongluan-playground/
 
 ### UIKIT是一套Sketch版的原子级组件库，它使用前端的DOM概念来设计的基础组件结构，并且有与鸿鸾前端一致的属性和变量规范。当前UIKIT包含并枚举了：
 - 100+种常用组件
