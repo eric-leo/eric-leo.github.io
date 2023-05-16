@@ -1,5 +1,8 @@
 ### eric-lzw.github.io
 
-- HONGLUAN.UI: https://eric-lzw.github.io/hl-ui/
+- blog: https://eric-lzw.github.io/blog/
 
-- Blog: https://eric-lzw.github.io/blog/
+- hl-ui: https://eric-lzw.github.io/hl-ui/
+
+- hl-business-ui: https://eric-lzw.github.io/hl-business-ui/
+
