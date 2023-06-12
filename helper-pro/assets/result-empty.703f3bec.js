@@ -1,1 +1,0 @@
-import o from"./demo.c2d4bb9c.js";import{_ as t}from"./source.e0072cd3.js";import{d as r,m as s,p as n,o as c}from"./vue.52656417.js";import"./echarts.3578bebe.js";const m=r({components:{demo:o},setup(){return{}}});function p(a,d,_,f,u,i){const e=s("demo");return c(),n(e)}var v=t(m,[["render",p]]);export{v as default};
