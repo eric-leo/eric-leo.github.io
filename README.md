@@ -124,19 +124,6 @@ yarn add @helper-ui/icons
 pnpm add @helper-ui/icons
 ```
 
-### Helper Hooks包含通用业务的Hooks实现，目前还比较简单：
-
-> 文档地址：https://eric-leo.github.io/helper-hooks
-
-```shell
-安装方式：
-npm install helper-hooks
-或
-yarn add helper-hooks
-或
-pnpm add helper-hooks
-```
-
 ### Helper Play：直接线上运行代码，分享URL即分享代码
 
 > 文档地址：https://eric-leo.github.io/helper-playground/
@@ -152,3 +139,16 @@ pnpm add helper-hooks
 ### 前端工具库：项目里常用的函数，TS类型等提炼至 此项目里
 
 > 文档地址：https://eric-leo.github.io/hl-front-utils/
+
+### Helper Hooks包含通用业务的Hooks实现，目前还比较简单：
+
+> 文档地址：https://eric-leo.github.io/helper-hooks
+
+```shell
+安装方式：
+npm install helper-hooks
+或
+yarn add helper-hooks
+或
+pnpm add helper-hooks
+```
