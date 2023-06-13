@@ -41,16 +41,16 @@ pnpm add helper-ui
 - 1套亮色模式主题
 - 1套暗色模式主题
 
-### HelperUI Pro页面模板是基于Holy 前端组件库生成的一套开箱即用的B端后台类页面模版库，它当前拥有：
+### HelperUI Pro页面模板是基于helper 前端组件库生成的一套开箱即用的B端后台类页面模版库，它当前拥有：
 
 > 文档地址：https://eric-leo.github.io/helper-pro/
 
 - 40+个通用页面模版
 - 可快速改变页面整体布局样式
-- 可通过配置文件更换主题风格（通过Holy UI主题库实现）
+- 可通过配置文件更换主题风格（通过helper UI主题库实现）
 - 等特点，并且在日常工作和业务支撑的过程中不断地更新和完善。
 
-### Helper UI扩展组件库是基于Holy 前端组件库进行二次封装的组件库，它当前拥有：
+### Helper UI扩展组件库是基于helper 前端组件库进行二次封装的组件库，它当前拥有：
 
 > 文档地址：https://eric-leo.github.io/helper-business-ui/
 
@@ -71,17 +71,17 @@ pnpm add helper-business-ui
 - 窗口停靠容器
 - ……等15+个常用扩展组件
 
-### Helper UI扩展组件库是基于Holy 前端组件库holy-ui和holy-business-ui进行二次封装的组件库，它当前拥有：
+### Helper UI扩展组件库是基于helper 前端组件库helper-ui和helper-business-ui进行二次封装的组件库，它当前拥有：
 
-> 文档地址：https://eric-leo.github.io/fx-front-framework/
+> 文档地址：https://eric-leo.github.io/hl-front-framework/
 
 ```shell
 安装方式：
-npm install fx-front-framework
+npm install hl-front-framework
 或
-yarn add fx-front-framework
+yarn add hl-front-framework
 或
-pnpm add fx-front-framework
+pnpm add hl-front-framework
 ```
 
 - 操作按钮
@@ -108,7 +108,7 @@ pnpm add @helper-ui/styles
 - uk2a（规范，Pro模板样式）
 - ioc（数字规范，Pro模板样式）
 - cecloud（云规范，Pro模板样式）
-- fx（繁星规范，Pro模板样式）
+- fx（fx规范，Pro模板样式）
 - visualized（大屏规范，Pro模板样式）
 
 ### Helper SVG Icons包含300+个SVG图标，提供twotone，fill，file三个系列：
@@ -146,9 +146,9 @@ pnpm add helper-hooks
 > 文档地址：https://eric-leo.github.io/helper-theme-editor/
 
 - 目前仅支持:root下变量可视化编辑
-- 支持亮色，暗色，繁星，电子云四种主题
+- 支持亮色，暗色，浅蓝色，云 四种主题
 
-### UIKIT是一套Sketch版的原子级组件库，它使用前端的DOM概念来设计的基础组件结构，并且有与Holy 前端一致的属性和变量规范。当前UIKIT包含并枚举了：
-- 100+种常用组件
-- 30+种常用移动端组件
-- 整套云管控台UI组件
+
+### 前端工具库：项目里常用的函数，TS类型等提炼至 此项目里
+
+> 文档地址：https://eric-leo.github.io/hl-front-utils/
