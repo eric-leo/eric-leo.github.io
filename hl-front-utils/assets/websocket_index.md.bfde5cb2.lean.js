@@ -1,0 +1,1 @@
+import{_ as s,c as n,o as a,a as e}from"./app.dd59ba8d.js";const m='{"title":"API","description":"","frontmatter":{},"headers":[{"level":2,"title":"API","slug":"api"}],"relativePath":"websocket/index.md"}',t={},o=e("",3),p=[o];function c(r,i,l,d,u,k){return a(),n("div",null,p)}var v=s(t,[["render",c]]);export{m as __pageData,v as default};

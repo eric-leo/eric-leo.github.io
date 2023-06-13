@@ -1,0 +1,1 @@
+import{_ as s,c as n,o as a,a as e}from"./app.dd59ba8d.js";const b='{"title":"API","description":"","frontmatter":{},"headers":[{"level":2,"title":"API","slug":"api"}],"relativePath":"date/index.md"}',t={},p=e("",6),o=[p];function r(c,l,i,d,u,m){return a(),n("div",null,o)}var _=s(t,[["render",r]]);export{b as __pageData,_ as default};
