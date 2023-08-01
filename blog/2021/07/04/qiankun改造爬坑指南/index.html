@@ -1,0 +1,265 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>qiankun改造爬坑指南 | Hexo</title><meta name="author" content="ZhiWeiLi"><meta name="copyright" content="ZhiWeiLi"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="qiankun改造爬坑指南qiankun简介官方介绍 一句话总结：qiankun是基于浏览器url实现的，由路径决定加载哪个子应用，子应用可任意技术栈、独立开发、互不影响。 背景老项目使用Vue2 + ElementUi，随着业务升级，以及内部组件库升级，各模块需要逐步升级为Vue3 + 自研UI库（基于Elment Plus改造的），所以开始了爬坑之旅。 改造过程 基座 基于老项目删除业务模块、">
+<meta property="og:type" content="article">
+<meta property="og:title" content="qiankun改造爬坑指南">
+<meta property="og:url" content="https://eric-lzw.github.io/2021/07/04/qiankun%E6%94%B9%E9%80%A0%E7%88%AC%E5%9D%91%E6%8C%87%E5%8D%97/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="qiankun改造爬坑指南qiankun简介官方介绍 一句话总结：qiankun是基于浏览器url实现的，由路径决定加载哪个子应用，子应用可任意技术栈、独立开发、互不影响。 背景老项目使用Vue2 + ElementUi，随着业务升级，以及内部组件库升级，各模块需要逐步升级为Vue3 + 自研UI库（基于Elment Plus改造的），所以开始了爬坑之旅。 改造过程 基座 基于老项目删除业务模块、">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://s2.loli.net/2023/08/01/jUs1rcT2kwPvuMm.png">
+<meta property="article:published_time" content="2021-07-04T03:49:21.000Z">
+<meta property="article:modified_time" content="2023-08-01T07:23:21.566Z">
+<meta property="article:author" content="ZhiWeiLi">
+<meta property="article:tag" content="qiankun">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2023/08/01/jUs1rcT2kwPvuMm.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://eric-lzw.github.io/2021/07/04/qiankun%E6%94%B9%E9%80%A0%E7%88%AC%E5%9D%91%E6%8C%87%E5%8D%97/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'qiankun改造爬坑指南',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-08-01 15:23:21'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://s2.loli.net/2023/08/01/IVLEeKcaFstJd2Q.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">29</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">11</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://github.com/eric-leo"><i class="fa-fw fa fa-link"></i><span> Link</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://s2.loli.net/2023/08/01/jUs1rcT2kwPvuMm.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Hexo"><span class="site-name">Hexo</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://github.com/eric-leo"><i class="fa-fw fa fa-link"></i><span> Link</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">qiankun改造爬坑指南</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2021-07-04T03:49:21.000Z" title="Created 2021-07-04 11:49:21">2021-07-04</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-08-01T07:23:21.566Z" title="Updated 2023-08-01 15:23:21">2023-08-01</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="qiankun改造爬坑指南"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="qiankun改造爬坑指南"><a href="#qiankun改造爬坑指南" class="headerlink" title="qiankun改造爬坑指南"></a>qiankun改造爬坑指南</h2><h3 id="qiankun简介"><a href="#qiankun简介" class="headerlink" title="qiankun简介"></a>qiankun简介</h3><p><a target="_blank" rel="noopener" href="https://qiankun.umijs.org/zh/guide">官方介绍</a></p>
+<p>一句话总结：qiankun是基于浏览器url实现的，由路径决定加载哪个子应用，子应用可任意技术栈、独立开发、互不影响。</p>
+<h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>老项目使用Vue2 + ElementUi，随着业务升级，以及内部组件库升级，各模块需要逐步升级为Vue3 + 自研UI库（基于Elment Plus改造的），所以开始了爬坑之旅。</p>
+<h3 id="改造过程"><a href="#改造过程" class="headerlink" title="改造过程"></a>改造过程</h3><ul>
+<li><p>基座</p>
+<p>基于老项目删除业务模块、保留了登录和框架（header、aside-menu、footer、empty-container）</p>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">├── vue.config.js // 精简配置：删除处理业务的loader、plugin</span><br><span class="line">├── package.json // 删除无关依赖</span><br><span class="line">├── public</span><br><span class="line">│   ├── appConfig.json // 生产环境 qiankun的registerMicroApps配置</span><br><span class="line">│   ├── appConfigDev.json // 开发环境 qiankun的registerMicroApps配置</span><br><span class="line">│   └── index.html // 修改引入js为绝对路径</span><br><span class="line">├── src</span><br><span class="line">│   ├── router</span><br><span class="line">│   │   ├── config.js // 配置子服务url前缀与路由之间的映射关系，格式为 &quot;sub-app&quot;: [&quot;/xxxx&quot;]</span><br><span class="line">│   │   ├── index.js // 重写router的push、replace、resolve方法</span><br><span class="line">│   │   └── routes.js // history模式下baseurl</span><br><span class="line">│   ├── store</span><br><span class="line">│   │   ├── globalRegister.js // 注册全局store，用于下发基座store到子应用</span><br><span class="line">│   │   ├── index.js</span><br><span class="line">│   │   └── initGlobalState.js // 初始化全局store，利用qiankun的initGlobalState监听子应用发出的commit</span><br><span class="line">│   ├── micro-app.js // 挂载基座的各种实例通过props传递给子应用（比如router、sotre、window等）</span><br><span class="line">│   └── main.js // 入口文件：注册子应用配置、下发props各种状态到子应用</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li>子应用</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">├── vue.config.js // publicPath（包括处理images）</span><br><span class="line">├── package.json // name与主应用配置的config文件里对应</span><br><span class="line">├── public</span><br><span class="line">│   └── index.html // 静态路径引入以./开头</span><br><span class="line">├── src</span><br><span class="line">│   ├── router</span><br><span class="line">│   │   └── index.js // history模式下baseurl</span><br><span class="line">│   ├── qiankun-config</span><br><span class="line">│   │   ├── alone // 独立启动子项目时store逻辑</span><br><span class="line">│   │   └── child // 基于基座启动时store逻辑</span><br><span class="line">│   ├── main.js // 注册qiankun的生命周期函数，加入全局loading逻辑</span><br><span class="line">│   └── public-path.js // webpack处理静态资源找到</span><br></pre></td></tr></table></figure>
+
+<h3 id="爬过的坑"><a href="#爬过的坑" class="headerlink" title="爬过的坑"></a>爬过的坑</h3><h4 id="常见通用问题"><a href="#常见通用问题" class="headerlink" title="常见通用问题"></a>常见通用问题</h4><p>大部分qiankun问题可以在官方的<a target="_blank" rel="noopener" href="https://qiankun.umijs.org/zh/faq">常见问题</a>中找到，以下是我在改造过程中遇到的问题，出现频率可能较高，这里单独解释一下</p>
+<ul>
+<li><p><strong>无报错，子应用未成功加载</strong>，检查<strong>appConfig.json、appConfigDev.json</strong>，activeRule配置是否正确，<strong>activeRule</strong>应避免与<strong>entry</strong>相同</p>
+</li>
+<li><p><strong>Application died in status LOADING_SOURCE_CODE: You need to export the functional lifecycles in xxx entry</strong></p>
+<p>排查是vueconfig.js中<strong>output.libraryTarget</strong>未与主应用保持一致，参考问题9，通常配置为<strong>umd</strong>格式。<br>此类问题，<strong>排查思路</strong>：先检查下子项目的入口文件有没有 <code>export</code> 生命周期函数，再检查下子项目的打包，最后看看请求到的子项目的文件对不对。</p>
+</li>
+<li><p><strong>Application died in status NOT_MOUNTED: Target container with #container not existed while xxx loading!</strong></p>
+<p>报错是因为微应用加载时容器 DOM 不存在，一开始以为qiankun的start时机不正确，改造到vue的mounted钩子函数中依旧报错。后来排查是因为容器 DOM上有v-if控制，这个变量是从vuex取到的，vuex用了”vue-savedata”做持久化，初始化后localStorage的这个变量始终为false，最后将层级设置大一些（MMD: 5），解决问题。</p>
+</li>
+<li><p>控制台报 <strong>Uncaught SyntaxError: Unexpected token ‘&lt;’</strong></p>
+<p>查看public&#x2F;index.html引用js路径是否正确，规则查看上述<strong>改造过程</strong>、查看子应用publicPath设置是否正确，如：”&#x2F;subapp&#x2F;sub-business”，注意与<strong>Nginx</strong>配置一致</p>
+</li>
+<li><p>子应用中获取<strong>全局window对象</strong><br>例如：用了innerHtml插入dom，如：<code>&lt;button onclick=&quot;click&quot;&gt;&lt;/button&gt;</code>。由于qiankun的沙箱机制，子应用里window都是proxy，即使在代码里写window.click也是定义在当前代理的window对象中，是不会定义到全局window对象的。获取全局window办法：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> _window = <span class="keyword">new</span> <span class="title class_">Function</span>(<span class="string">&quot;return this&quot;</span>)();</span><br><span class="line">_window.<span class="property">click</span> = <span class="function">() =&gt;</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>项目用到<strong>UEidtor、Baidu Map</strong>等开源库，<strong>子应用</strong>向body动态创建script标签失败问题（js库暴露的全局对象会写到子应用的window.proxy下）<br>由于qiankun的沙箱机制，会对document.createElement、apend、insert等原生方法进行一层封装，以此实现隔离。</p>
+<p>主要源码如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 在创建元素时，会判断当前环境是否为shadow dom且生成tag为style,script,link, 若是则将生成的元素里面注入一个标识</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">patchDocumentCreateElement</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="comment">// 将proxy以及应用信息缓存起来，后续apend，insert操作会用上</span></span><br><span class="line">    proxyContainerInfoMapper.<span class="title function_">set</span>(proxy, &#123; appName, proxy, appWrapperGetter, dynamicStyleSheetElements, singular &#125;);</span><br><span class="line">  </span><br><span class="line">    <span class="title class_">Document</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">createElement</span> = <span class="keyword">function</span> <span class="title function_">createElement</span>(<span class="params"></span>): <span class="title class_">HTMLElement</span> &#123;</span><br><span class="line">        <span class="comment">// 执行原方法</span></span><br><span class="line">        <span class="keyword">const</span> element = rawDocumentCreateElement.<span class="title function_">call</span>(<span class="variable language_">this</span>, tagName, options);</span><br><span class="line">        <span class="comment">// 是否style,script,link</span></span><br><span class="line">        <span class="keyword">if</span> (tagName == [style,script,link]) &#123;</span><br><span class="line">          <span class="comment">// 判断当前documnent.createElement运行环境是否为对应微应用</span></span><br><span class="line">          <span class="keyword">const</span> proxy = (<span class="variable language_">this</span>即<span class="variable language_">document</span>)[attachDocProxySymbol]</span><br><span class="line">          <span class="keyword">const</span> proxyContainerInfo = proxyContainerInfoMapper.<span class="title function_">get</span>(proxy);</span><br><span class="line">          <span class="keyword">if</span> (proxyContainerInfo) &#123;</span><br><span class="line">            <span class="comment">// 将应用信息赋值给element，如果element为style,script,link</span></span><br><span class="line">            <span class="comment">// 这里是为插入的时候，据此判断是否为shadow dom 插入style，script，若是，则作相关处理</span></span><br><span class="line">            <span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(element, attachElementContainerSymbol, &#123;</span><br><span class="line">              <span class="attr">value</span>: proxyContainerInfo,</span><br><span class="line">              <span class="attr">enumerable</span>: <span class="literal">false</span>,</span><br><span class="line">            &#125;);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">  </span><br><span class="line">        <span class="keyword">return</span> element;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 还原  </span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">function</span> <span class="title function_">unpatch</span>(<span class="params">recoverPrototype: boolean</span>) &#123;</span><br><span class="line">      proxyContainerInfoMapper.<span class="title function_">delete</span>(proxy);</span><br><span class="line">      <span class="keyword">if</span> (recoverPrototype) &#123;</span><br><span class="line">        <span class="title class_">Document</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">createElement</span> = rawDocumentCreateElement;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>解决方案：<br>qiankun的excludeAssetFilter过滤相关js，使子应用动态创建的script可以挂在全局</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">start</span>(&#123;</span><br><span class="line">  <span class="attr">sendbox</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="attr">excludeAssetFilter</span>: <span class="function"><span class="params">url</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> whiteWords = [<span class="string">&quot;ueditor.config.js&quot;</span>, <span class="string">&quot;ueditor.all&quot;</span>];</span><br><span class="line">    <span class="keyword">return</span> whiteWords.<span class="title function_">some</span>(<span class="function"><span class="params">w</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> url.<span class="title function_">includes</span>(w);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="项目中的一些问题"><a href="#项目中的一些问题" class="headerlink" title="项目中的一些问题"></a>项目中的一些问题</h4><ul>
+<li><p>微应用打包之后 css 中的字体文件和图片加载 404</p>
+<ul>
+<li>一张图使用的UI库，onepicture-ui是将组件的图片打包到dist，项目中使用copy-webpack-plugin拷贝到项目路径下来使用。这样做不会经过项目webpack打包处理，未将静态资源加入__webpack_public_path__。解决方案：组件库升级到1.7.7，已将图片打包为base64</li>
+<li>传递给egis的图片url无法找到，因为传递给egis的是<strong>public</strong>下的图片资源，不会经过webpack打包处理，需要手动添加**__webpack_public_path__**前缀，如： cosnt icon &#x3D; _<em>webpack_public_path</em>_ + “image&#x2F;mapIcon.png”</li>
+</ul>
+</li>
+<li><p>重写router的push、replace、resolve方法，使router.path带有子应用前缀（如：sub-app），导致一些业务中逻辑判断失效</p>
+<p>一般出现在菜单部分，利用正则去除前缀：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 替换微服务url前缀为空字符串</span></span><br><span class="line"><span class="title function_">handleReplaceUrl</span>(<span class="params">path</span>) &#123;</span><br><span class="line">  <span class="comment">// 替换微服务地址前缀为空 使菜单active正确 localConfig为router/config.js</span></span><br><span class="line">  <span class="keyword">const</span> subAppsKey = <span class="title class_">Object</span>.<span class="title function_">keys</span>(localConfig);</span><br><span class="line">  <span class="keyword">return</span> path.<span class="title function_">replace</span>(<span class="keyword">new</span> <span class="title class_">RegExp</span>(subAppsKey.<span class="title function_">join</span>(<span class="string">&quot;|&quot;</span>)), <span class="string">&quot;&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>部署时，路径相关问题</p>
+<ul>
+<li><p>控制台报<strong>JSON.pase错误</strong>，排查到serverconfig.json路径问题， 改造前获取路径为**”serverconfig.json”<strong>，这样写请求路径会拼上当前域名，如当前页面url为：</strong><a target="_blank" rel="noopener" href="http://www.abc.com/a/b**%EF%BC%8C%E5%88%99%E8%AF%B7%E6%B1%82%E8%B7%AF%E4%B8%BA%EF%BC%9A**http://www.abc.com/a/b/serverconfig.json**%E3%80%82%E7%94%B1%E4%BA%8E%E8%AE%A9%E8%BF%90%E7%BB%B4%E9%85%8D%E7%BD%AENginx%EF%BC%8Cerrorpage">http://www.abc.com/a/b**，则请求路为：**http://www.abc.com/a/b/serverconfig.json**。由于让运维配置Nginx，errorpage</a> 404 500 index.html，所以返回了html的内容，所以JSON.parse自然报错。<br>解决方法：</p>
+<ul>
+<li>获取serverconfig.json时加上子应用路径: <strong>“webpack_public_path + url”</strong></li>
+<li>路径全部获取根路径（基座）的serverconfig.json, <strong>“&#x2F;serverconfig.json”</strong> （<strong>推荐！</strong>大部场景服务的baseurl都是一致的，这样只需要基座应用维护一个serverconfig.json，运维也只需取这一份配置）</li>
+</ul>
+</li>
+<li><p>打包后img，引用404，vue.config.js中添加配置如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">chainWebpack</span>: <span class="function"><span class="params">config</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (isProduction) &#123;</span><br><span class="line">      config.<span class="property">module</span></span><br><span class="line">        .<span class="title function_">rule</span>(<span class="string">&quot;images&quot;</span>)</span><br><span class="line">        .<span class="title function_">use</span>(<span class="string">&quot;url-loader&quot;</span>)</span><br><span class="line">        .<span class="title function_">loader</span>(<span class="string">&quot;url-loader&quot;</span>)</span><br><span class="line">        .<span class="title function_">tap</span>(<span class="function"><span class="params">options</span> =&gt;</span> &#123;</span><br><span class="line">          <span class="keyword">return</span> &#123;</span><br><span class="line">            ...options,</span><br><span class="line">            <span class="comment">// publicPath同vueconfig中曝露的同名变量，如：/subapp/sub-business</span></span><br><span class="line">            <span class="attr">publicPath</span>: publicPath + <span class="string">&quot;/&quot;</span></span><br><span class="line">          &#125;;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<h4 id="几个问题的思考与讨论"><a href="#几个问题的思考与讨论" class="headerlink" title="几个问题的思考与讨论"></a>几个问题的思考与讨论</h4><h5 id="子应用之间的路由跳转"><a href="#子应用之间的路由跳转" class="headerlink" title="子应用之间的路由跳转"></a>子应用之间的路由跳转</h5><p>基座对<strong>router.push、replace、resolve</strong>进行了重写，只需写路由的path即可跳转对应的子应用，基座通过<strong>props</strong>传递给子应用，子应用利用<strong>props.router</strong>的<strong>push</strong>等方法进行跳转。</p>
+<p>#####项目路由只能用<code>history</code>模式吗？</p>
+<p>由于 qiankun是通过 <strong>location.pathname</strong> 值来判断当前应该加载哪个子项目的，所以需要给每个子项目注入不同的路由 <strong>path</strong>，而 <strong>hash</strong> 模式子项目路由跳转不改变 <strong>path</strong>，所以无影响，<strong>history</strong> 模式子项目路由设置 <strong>base</strong> 属性即可。</p>
+<p>如果主项目使用 <strong>hash</strong> 模式，那么得用 <strong>location.hash</strong> 值来判断当前应该加载哪个子项目，并且子项目都得是 <strong>hash</strong> 模式，还需要给子项目所有的路由都添加一个前缀，子项目的路由跳转如果之前使用的是 <strong>path</strong> 也需要修改，用 <strong>name</strong> 跳转则不用。</p>
+<p>如果主项目是 <strong>hash</strong> 模式子项目为 <strong>history</strong> 模式，那么跳转到子项目之后，无法跳转到另一个 <strong>history</strong> 模式的子项目，也无法回到主项目的页面。</p>
+<ul>
+<li>vue2 router history:</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="title class_">Router</span>(&#123;</span><br><span class="line">  <span class="attr">mode</span>: <span class="string">&quot;history&quot;</span>,</span><br><span class="line">  <span class="attr">base</span>: <span class="string">&quot;/sub-app/&quot;</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>vue3 router history:</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">createRouter</span>(&#123;</span><br><span class="line">  <span class="attr">history</span>: <span class="title function_">createWebHistory</span>(<span class="string">&quot;/sub-app/&quot;</span>)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h5 id="如何进行项目分支管理"><a href="#如何进行项目分支管理" class="headerlink" title="如何进行项目分支管理"></a>如何进行项目分支管理</h5><ul>
+<li><p>方案1：各仓库以相同标准命名（难维护）</p>
+</li>
+<li><p>方案2：<a target="_blank" rel="noopener" href="https://git-scm.com/book/zh/v2/Git-%E5%B7%A5%E5%85%B7-%E5%AD%90%E6%A8%A1%E5%9D%97">git submodule</a></p>
+</li>
+</ul>
+<h5 id="应用之间的通信"><a href="#应用之间的通信" class="headerlink" title="应用之间的通信"></a>应用之间的通信</h5><p>通常子应用之间最好保持独立、业务解耦，但是通信也有以下几种方案：</p>
+<ul>
+<li><p>简单业务下，通过url传参</p>
+</li>
+<li><p>vue的项目，子应用共用相同全局store</p>
+</li>
+<li><p>子应用间通信较少时，推荐官方提供的应用间通信方式 - <strong>Actions</strong> 通信</p>
+</li>
+<li><p>发布&#x2F;订阅，基座写一个<strong>事件总线</strong>下发到各个子应用，应用之间不直接相互交互，我都统一去事件总线上注册事件、监听事件，通过这么一个发布订阅模型来做到应用之间的相互通信。</p>
+</li>
+</ul>
+<h5 id="优化公共模块"><a href="#优化公共模块" class="headerlink" title="优化公共模块"></a>优化公共模块</h5><ul>
+<li>配置webpack的externals，在基座项目中引入cdn资源</li>
+<li>webpack5的联邦模块</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="https://eric-lzw.github.io">ZhiWeiLi</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://eric-lzw.github.io/2021/07/04/qiankun%E6%94%B9%E9%80%A0%E7%88%AC%E5%9D%91%E6%8C%87%E5%8D%97/">https://eric-lzw.github.io/2021/07/04/qiankun%E6%94%B9%E9%80%A0%E7%88%AC%E5%9D%91%E6%8C%87%E5%8D%97/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/qiankun/">qiankun</a></div><div class="post_share"><div class="social-share" data-image="https://s2.loli.net/2023/08/01/jUs1rcT2kwPvuMm.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/04/09/Vue%20deep%20and%20chrome%20deep/" title="Vue deep and Chrome deep"><img class="cover" src="https://s2.loli.net/2023/08/01/AwyQMqEBVPSR2Ux.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">Vue deep and Chrome deep</div></div></a></div><div class="next-post pull-right"><a href="/2019/09/07/TS%E4%B9%8B%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/" title="TS之知识总结"><img class="cover" src="https://s2.loli.net/2023/08/01/wziyq4LTuMacjRW.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">TS之知识总结</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://s2.loli.net/2023/08/01/IVLEeKcaFstJd2Q.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">ZhiWeiLi</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">29</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">11</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/eric-leo"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="mailto:liunianyuying@163.com" target="_blank" title="Email"><i class="fa fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#qiankun%E6%94%B9%E9%80%A0%E7%88%AC%E5%9D%91%E6%8C%87%E5%8D%97"><span class="toc-number">1.</span> <span class="toc-text">qiankun改造爬坑指南</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#qiankun%E7%AE%80%E4%BB%8B"><span class="toc-number">1.1.</span> <span class="toc-text">qiankun简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%83%8C%E6%99%AF"><span class="toc-number">1.2.</span> <span class="toc-text">背景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%94%B9%E9%80%A0%E8%BF%87%E7%A8%8B"><span class="toc-number">1.3.</span> <span class="toc-text">改造过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%88%AC%E8%BF%87%E7%9A%84%E5%9D%91"><span class="toc-number">1.4.</span> <span class="toc-text">爬过的坑</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E9%80%9A%E7%94%A8%E9%97%AE%E9%A2%98"><span class="toc-number">1.4.1.</span> <span class="toc-text">常见通用问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98"><span class="toc-number">1.4.2.</span> <span class="toc-text">项目中的一些问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%87%A0%E4%B8%AA%E9%97%AE%E9%A2%98%E7%9A%84%E6%80%9D%E8%80%83%E4%B8%8E%E8%AE%A8%E8%AE%BA"><span class="toc-number">1.4.3.</span> <span class="toc-text">几个问题的思考与讨论</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AD%90%E5%BA%94%E7%94%A8%E4%B9%8B%E9%97%B4%E7%9A%84%E8%B7%AF%E7%94%B1%E8%B7%B3%E8%BD%AC"><span class="toc-number">1.4.3.1.</span> <span class="toc-text">子应用之间的路由跳转</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E9%A1%B9%E7%9B%AE%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86"><span class="toc-number">1.4.3.2.</span> <span class="toc-text">如何进行项目分支管理</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%BA%94%E7%94%A8%E4%B9%8B%E9%97%B4%E7%9A%84%E9%80%9A%E4%BF%A1"><span class="toc-number">1.4.3.3.</span> <span class="toc-text">应用之间的通信</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BC%98%E5%8C%96%E5%85%AC%E5%85%B1%E6%A8%A1%E5%9D%97"><span class="toc-number">1.4.3.4.</span> <span class="toc-text">优化公共模块</span></a></li></ol></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/07/18/Vite%20VS%20Webpack/" title="Vite VS Webpack"><img src="https://s2.loli.net/2023/08/01/3P7IAReGbsfOFur.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Vite VS Webpack"/></a><div class="content"><a class="title" href="/2022/07/18/Vite%20VS%20Webpack/" title="Vite VS Webpack">Vite VS Webpack</a><time datetime="2022-07-18T14:18:53.000Z" title="Created 2022-07-18 22:18:53">2022-07-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/04/09/Vue%20deep%20and%20chrome%20deep/" title="Vue deep and Chrome deep"><img src="https://s2.loli.net/2023/08/01/AwyQMqEBVPSR2Ux.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Vue deep and Chrome deep"/></a><div class="content"><a class="title" href="/2022/04/09/Vue%20deep%20and%20chrome%20deep/" title="Vue deep and Chrome deep">Vue deep and Chrome deep</a><time datetime="2022-04-09T15:11:58.000Z" title="Created 2022-04-09 23:11:58">2022-04-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/07/04/qiankun%E6%94%B9%E9%80%A0%E7%88%AC%E5%9D%91%E6%8C%87%E5%8D%97/" title="qiankun改造爬坑指南"><img src="https://s2.loli.net/2023/08/01/jUs1rcT2kwPvuMm.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="qiankun改造爬坑指南"/></a><div class="content"><a class="title" href="/2021/07/04/qiankun%E6%94%B9%E9%80%A0%E7%88%AC%E5%9D%91%E6%8C%87%E5%8D%97/" title="qiankun改造爬坑指南">qiankun改造爬坑指南</a><time datetime="2021-07-04T03:49:21.000Z" title="Created 2021-07-04 11:49:21">2021-07-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2019/09/07/TS%E4%B9%8B%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/" title="TS之知识总结"><img src="https://s2.loli.net/2023/08/01/wziyq4LTuMacjRW.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="TS之知识总结"/></a><div class="content"><a class="title" href="/2019/09/07/TS%E4%B9%8B%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/" title="TS之知识总结">TS之知识总结</a><time datetime="2019-09-07T14:08:23.000Z" title="Created 2019-09-07 22:08:23">2019-09-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2019/07/20/Express%E4%B9%8B%E5%85%A5%E9%97%A8%E7%AF%87/" title="Express之入门篇"><img src="https://s2.loli.net/2023/08/01/HTVYS2hNzJ1Z8Kb.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Express之入门篇"/></a><div class="content"><a class="title" href="/2019/07/20/Express%E4%B9%8B%E5%85%A5%E9%97%A8%E7%AF%87/" title="Express之入门篇">Express之入门篇</a><time datetime="2019-07-20T05:12:43.000Z" title="Created 2019-07-20 13:12:43">2019-07-20</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By ZhiWeiLi</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
