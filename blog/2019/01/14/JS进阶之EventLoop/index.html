@@ -7,7 +7,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://s2.loli.net/2023/08/01/ws4BZMF96qjxG1P.png">
 <meta property="article:published_time" content="2019-01-14T07:33:54.000Z">
-<meta property="article:modified_time" content="2023-08-01T09:17:18.565Z">
+<meta property="article:modified_time" content="2023-08-02T02:15:11.443Z">
 <meta property="article:author" content="ZhiWeiLi">
 <meta property="article:tag" content="js">
 <meta name="twitter:card" content="summary">
@@ -27,7 +27,7 @@
     homepage: false,
     post: false
   },
-  runtime: '',
+  runtime: 'days',
   dateSuffix: {
     just: 'Just',
     min: 'minutes ago',
@@ -58,7 +58,7 @@
   isHome: false,
   isHighlightShrink: false,
   isToc: true,
-  postUpdate: '2023-08-01 17:17:18'
+  postUpdate: '2023-08-02 10:15:11'
 }</script><noscript><style type="text/css">
   #nav {
     opacity: 1
@@ -162,7 +162,7 @@
       }
     }
     detectApple()
-    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://s2.loli.net/2023/08/01/IVLEeKcaFstJd2Q.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/blog/archives/"><div class="headline">Articles</div><div class="length-num">29</div></a><a href="/blog/tags/"><div class="headline">Tags</div><div class="length-num">11</div></a><a href="/blog/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/blog/"><i class="fa-fw fa fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/blog/archives/"><i class="fa-fw fa fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/blog/tags/"><i class="fa-fw fa fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/blog/categories/"><i class="fa-fw fa fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://github.com/eric-leo"><i class="fa-fw fa fa-link"></i><span> Link</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://s2.loli.net/2023/08/01/ws4BZMF96qjxG1P.png')"><nav id="nav"><span id="blog-info"><a href="/blog/" title="Hexo"><span class="site-name">Hexo</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/blog/"><i class="fa-fw fa fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/blog/archives/"><i class="fa-fw fa fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/blog/tags/"><i class="fa-fw fa fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/blog/categories/"><i class="fa-fw fa fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://github.com/eric-leo"><i class="fa-fw fa fa-link"></i><span> Link</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">JS进阶之EventLoop</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2019-01-14T07:33:54.000Z" title="Created 2019-01-14 15:33:54">2019-01-14</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-08-01T09:17:18.565Z" title="Updated 2023-08-01 17:17:18">2023-08-01</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="JS进阶之EventLoop"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h3 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h3><p>开始介绍EventLoop之前我们先了解一些前置基础知识——线程和进程。</p>
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://s2.loli.net/2023/08/01/IVLEeKcaFstJd2Q.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/blog/archives/"><div class="headline">Articles</div><div class="length-num">29</div></a><a href="/blog/tags/"><div class="headline">Tags</div><div class="length-num">11</div></a><a href="/blog/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/blog/"><i class="fa-fw fa fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/blog/archives/"><i class="fa-fw fa fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/blog/tags/"><i class="fa-fw fa fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/blog/categories/"><i class="fa-fw fa fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://github.com/eric-leo"><i class="fa-fw fa fa-link"></i><span> Link</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://s2.loli.net/2023/08/01/ws4BZMF96qjxG1P.png')"><nav id="nav"><span id="blog-info"><a href="/blog/" title="Hexo"><span class="site-name">Hexo</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/blog/"><i class="fa-fw fa fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/blog/archives/"><i class="fa-fw fa fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/blog/tags/"><i class="fa-fw fa fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/blog/categories/"><i class="fa-fw fa fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://github.com/eric-leo"><i class="fa-fw fa fa-link"></i><span> Link</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">JS进阶之EventLoop</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2019-01-14T07:33:54.000Z" title="Created 2019-01-14 15:33:54">2019-01-14</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-08-02T02:15:11.443Z" title="Updated 2023-08-02 10:15:11">2023-08-02</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="JS进阶之EventLoop"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h3 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h3><p>开始介绍EventLoop之前我们先了解一些前置基础知识——线程和进程。</p>
 <h3 id="进程和线程"><a href="#进程和线程" class="headerlink" title="进程和线程"></a>进程和线程</h3><h4 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h4><ul>
 <li>CPU承担了所有的计算任务</li>
 <li>进程是CPU资源分配的最小单位</li>
@@ -230,7 +230,7 @@
 <h3 id="EventLoop"><a href="#EventLoop" class="headerlink" title="EventLoop"></a>EventLoop</h3><p>在了解 Event Loop 之前，我们先来熟悉一下执行栈和事件队列这两个概念。</p>
 <h4 id="执行栈"><a href="#执行栈" class="headerlink" title="执行栈"></a>执行栈</h4><p>当我们调用一个方法的时候，js会生成一个与这个方法相对应的执行环境，也叫执行上下文，这个执行环境存在着这个方法的私有作用域、参数、this对象等等。因为js是单线程的，同一时间只能执行一个方法，所以当一系列的方法被依次调用的时候，js会先解析这些方法，把其中的同步任务按照执行顺序排队到一个地方，这个地方叫做执行栈。</p>
 <h4 id="事件队列"><a href="#事件队列" class="headerlink" title="事件队列"></a>事件队列</h4><p>当我们发出一个ajax请求，他并不会立刻返回结果，为了防止浏览器出现假死或者空白，主线程会把这个异步任务挂起(pending)，继续执行执行栈中的其他任务，等异步任务返回结果后，js会将这个异步任务按照执行顺序，加入到与执行栈不同的另一个队列，也就是事件队列。</p>
-<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfcvu9kvj4j30gp0endg6.jpg" alt="img1.jpg"></p>
+<p><img src="https://s2.loli.net/2023/08/02/9SqOY5ztDAidoPZ.png" alt="img1.jpg"></p>
 <p>如图所示：</p>
 <ul>
 <li>主线程运行的时候会生成堆（heap）和栈（stack</li>
@@ -242,7 +242,7 @@
 <p>以上的事件循环过程只是一个宏观的表述，实际上异步任务之间也不相同，执行优先级也有区别。不同的异步任务被分为两类：宏任务（macro task）和微任务（micro task）。我们将经常遇到的异步任务进行分类如下：</p>
 <p><strong>宏任务</strong>：setTimeout，setInterval，setImmediate，I&#x2F;O(磁盘读写或网络通信)，UI交互事件</p>
 <p><strong>微任务</strong>：process.nextTick，Promise.then</p>
-<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfcvueisauj30g909x3yy.jpg" alt="img.jpg"></p>
+<p><img src="https://s2.loli.net/2023/08/02/KdoPsMHrUBwQZbz.png" alt="img.jpg"></p>
 <p>前面我们介绍，事件循环会将其中的异步任务按照执行顺序排列到事件队列中。然而，根据异步事件的不同分类，这个事件实际上会被排列到对应的宏任务队列或者微任务队列当中去。</p>
 <p>当执行栈中的任务清空，主线程会先检查微任务队列中是否有任务，如果有，就将微任务队列中的任务依次执行，直到微任务队列为空，之后再检查宏任务队列中是否有任务，如果有，则每次取出第一个宏任务加入到执行栈中，之后再清空执行栈，检查微任务，以此循环…</p>
 <h4 id="EventLoop练习题"><a href="#EventLoop练习题" class="headerlink" title="EventLoop练习题"></a>EventLoop练习题</h4><p>为了加深印象，我们来几个例子🌰：</p>
@@ -269,8 +269,8 @@
 <li>执行所有的微任务，先执行nextTick中的所有的任务，再执行其它微任务</li>
 <li>开始执行宏任务，共有6个阶段，从第1个阶段开始，会执行每一个阶段所有的宏任务</li>
 </ul>
-<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfcwgztukpj30tf0d9dgy.jpg" alt="img2.jpg"></p>
-<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfcwgvnpt9j30xo0lxmzn.jpg" alt="img3.jpg"></p>
+<p><img src="https://s2.loli.net/2023/08/02/xZqtkW8LEAFfMTG.png" alt="img2.jpg"></p>
+<p><img src="https://s2.loli.net/2023/08/02/rgQZpKPYby8S34M.png" alt="img3.jpg"></p>
 <h4 id="setImmediate"><a href="#setImmediate" class="headerlink" title="setImmediate"></a>setImmediate</h4><p>setTimeout&#x2F;setInterval取值范围是[1,2的32次方-1],超出范围初始化为1，所以 setTimeout(fn,0) &#x3D; setTimeout(fn,1)</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">setTimeout</span>(<span class="keyword">function</span>  (<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;timeout&#x27;</span>);</span><br><span class="line">&#125;,<span class="number">0</span>);</span><br><span class="line"><span class="title function_">setImmediate</span>(<span class="keyword">function</span>  (<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;immediate&#x27;</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
